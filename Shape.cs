@@ -30,19 +30,28 @@ namespace LineasWPF
                 Indices = Indices,
                 Normals = Normals
             };
+            
             var material = new PhongMaterial
             {
                 DiffuseColor = new Color4(1f, 1f, 0, 0.5f)
             };
+            
             Model = new MeshGeometryModel3D
             {
                 Material = material,
                 Geometry = Mesh,
             };
-
+            Model.Geometry.IsDynamic = true;//FUNCIONA AÚN CON FALSE
             //Se actualiza todo cuando se cambia la forma de Edge
             ELeft.ShapeChanged += UpdateShape;
             ERight.ShapeChanged += UpdateShape;
+        }
+        public void ChangeColor(float red, float green, float blue)
+        {
+            Model.Material = new PhongMaterial
+            {
+                DiffuseColor = new Color4(red,green,blue, 0.5f)
+            };
         }
         protected void UpdateShape(object sender, EventArgs e)
         {
@@ -91,7 +100,7 @@ namespace LineasWPF
         }
         private void MoveNode(object sender, EventArgs e)
         {
-            angle = 1.5;
+            angle = 0;
             ERight.Angle = angle;
             ELeft.Angle = angle;
             ERight.Center = Node.Position;

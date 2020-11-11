@@ -6,8 +6,6 @@
         {
             ELeft.ToCircular();
             ERight.ToCircular();
-
-            //SetTriangles(); //AQUÍ ESTÁ EL ERROOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOR====================
             Model.Geometry.UpdateVertices();
         }
     }
