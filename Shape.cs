@@ -14,6 +14,7 @@ namespace LineasWPF
         protected Vector3Collection Normals;
         public readonly Edge ELeft, ERight;
         protected double Thickness;//SE HACE EVENTO? DEPENDENCY PROPERTY? Cuando cambia
+        public double angle { get; protected set; }//darle un valor a esto
         public Shape(double thickness)
         {
             Thickness = thickness;
@@ -38,10 +39,25 @@ namespace LineasWPF
                 Material = material,
                 Geometry = Mesh,
             };
+
+            //Se actualiza todo cuando se cambia la forma de Edge
+            ELeft.ShapeChanged += UpdateShape;
+            ERight.ShapeChanged += UpdateShape;
         }
 
-        protected void SetIndices()
+        protected void SetTriangles()
         {
+            //SE ESTABLECEN LAS POSICIONES
+            foreach (var pos in ERight.GetPositions())//Eright.getpositions() (E)
+            {
+                Positions.Add(new Vector3((float)pos.X, (float)pos.Y, 0));
+            }
+            foreach (var pos in ELeft.GetPositions())
+            {
+                Positions.Add(new Vector3((float)pos.X, (float)pos.Y, 0));
+            }
+
+            //SE ESTABLECEN LOS INDICES
             var temp = Positions.Count - 1;
             int i = 0;
             while (i < temp - 1)
@@ -51,11 +67,18 @@ namespace LineasWPF
                 i++;
                 Indices.Add(i);
             }
-        }
-        protected void SetNormals()
-        {
-            for (int i = 0; i < Positions.Count; i++)
+            //SE ESTABLECEN LOS VECTORES NORMALES
+            for (int p = 0; p < Positions.Count; p++)
                 Normals.Add(new Vector3(0, 0, 1));
+
+        }
+        protected void UpdateShape(object sender, EventArgs e)
+        {
+            //Borra posiciones e indices
+            Positions.Clear();
+            Indices.Clear();
+            //Reasigna los triangulos
+            SetTriangles();
         }
     }
     class SingleNode:Shape

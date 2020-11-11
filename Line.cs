@@ -8,57 +8,28 @@ namespace LineasWPF
     class Line:Shape
     {
         public Nodo NRight, NLeft;
-        public double angle { get; private set; }
+        
         public Line(Nodo left, Nodo right,double thickness=2):base(thickness)
        {
             NRight = right;
             NLeft = left;
             angle = Kinematics.Angle(NLeft.Position, NRight.Position);
+            //Se establece el angulo inicial
+            ERight.Angle = angle;
+            ELeft.Angle = angle;
 
             NRight.PositionChanged += MoveNode;
             NLeft.PositionChanged += MoveNode;
-            
-            ELeft.ShapeChanged += UpdateShape;
-            ERight.ShapeChanged += UpdateShape;
-
-
-
-
-            ERight.Angle = angle;
-            ELeft.Angle = angle;
+            //Se establecen las posiciones iniciales
             ERight.Center = NRight.Position;
             ELeft.Center = NLeft.Position;
 
-            SetPositions();
-            SetIndices();
-            SetNormals();
+            //Se actualizan los triangulos
+            SetTriangles();
             Model.Geometry.UpdateVertices();
 
         }
 
-        private void UpdateShape(object sender, EventArgs e)
-        {
-            //Borra posiciones e indices
-            Positions.Clear();
-            Indices.Clear();
-            //Reasigna las posiciones
-            SetPositions();
-            //Reasigna los indices
-            SetIndices();
-            SetNormals();
-        }
-
-        private void SetPositions()
-        {
-            foreach (var pos in ERight.GetPositions())//Eright.getpositions() (E)
-            {
-                Positions.Add(new Vector3((float)pos.X,(float)pos.Y,0));
-            }
-            foreach (var pos in ELeft.GetPositions())
-            {
-                Positions.Add(new Vector3((float)pos.X, (float)pos.Y, 0));
-            }
-        }
         private void MoveNode(object sender, EventArgs e)
         {
             //actualiza el angulo
