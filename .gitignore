@@ -1,0 +1,9 @@
+bin/*
+obj/*
+Properties/*
+LineasWPF.csproj
+LineasWPF.csproj.user
+App.config
+packages.config
+App.xaml
+App.xaml.cs
