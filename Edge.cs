@@ -6,7 +6,7 @@ namespace LineasWPF
     class Edge
     {
         public event EventHandler ShapeChanged;
-        readonly double Thickness;
+        private readonly double Thickness;
         private readonly List<Point> Stable;
         public Edge(bool isRight,double thickness)
         {

@@ -12,7 +12,7 @@ namespace LineasWPF
         protected Vector3Collection Positions;
         protected IntCollection Indices;
         protected Vector3Collection Normals;
-        public Edge ELeft, ERight;
+        public readonly Edge ELeft, ERight;
         protected double Thickness;//SE HACE EVENTO? DEPENDENCY PROPERTY? Cuando cambia
         public Shape(double thickness)
         {
@@ -40,6 +40,23 @@ namespace LineasWPF
             };
         }
 
+        protected void SetIndices()
+        {
+            var temp = Positions.Count - 1;
+            int i = 0;
+            while (i < temp - 1)
+            {
+                Indices.Add(i);
+                Indices.Add(temp);
+                i++;
+                Indices.Add(i);
+            }
+        }
+        protected void SetNormals()
+        {
+            for (int i = 0; i < Positions.Count; i++)
+                Normals.Add(new Vector3(0, 0, 1));
+        }
     }
     class SingleNode:Shape
     {
@@ -64,14 +81,6 @@ namespace LineasWPF
                 i++;
                 //Console.WriteLine(pos.X.ToString() + ',' + pos.Y.ToString());
             }
-        }
-    }
-    class Circle:SingleNode
-    {
-        public Circle(Nodo node, double thickness = 2):base(node,thickness)
-        {
-            ELeft = new Edge(false, Thickness);
-            ERight = new Edge(true, Thickness);
         }
     }
 }
