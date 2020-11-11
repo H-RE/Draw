@@ -4,8 +4,10 @@
     {
         public Rect(Nodo node, double thickness = 2) : base(node, thickness)
         {
-            //    ELeft.ToTrapezoidal();
-            //    ERight.ToTrapezoidal();
+            ELeft.ToTrapezoidal();
+            ERight.ToTrapezoidal();
+            SetTriangles();
+            Model.Geometry.UpdateVertices();
         }
     }
 }

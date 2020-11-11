@@ -77,6 +77,7 @@ namespace LineasWPF
             //Borra posiciones e indices
             Positions.Clear();
             Indices.Clear();
+            Normals.Clear();
             //Reasigna los triangulos
             SetTriangles();
         }
@@ -88,22 +89,31 @@ namespace LineasWPF
         {
             Node = node;
             Node.PositionChanged += MoveNode;
+            ELeft.Angle = 0;
+            ERight.Angle = 0;
+            ELeft.Center = node.Position;
+            ERight.Center = node.Position;
         }
         private void MoveNode(object sender, EventArgs e)
         {
+            angle = 1.5;
+            ERight.Angle = angle;
+            ELeft.Angle = angle;
+            ERight.Center = Node.Position;
+            ELeft.Center = Node.Position;
+
             int i = 0;
             foreach (var pos in ERight.GetPositions())
             {
-                Positions[i] = new SharpDX.Vector3((float)pos.X, (float)pos.Y, 0);
+                Positions[i] = new Vector3((float)pos.X, (float)pos.Y, 0);
                 i++;
-                //Console.WriteLine(pos.X.ToString()+','+ pos.Y.ToString());
             }
             foreach (var pos in ELeft.GetPositions())
             {
-                Positions[i] = new SharpDX.Vector3((float)pos.X, (float)pos.Y, 0);
+                Positions[i] = new Vector3((float)pos.X, (float)pos.Y, 0);
                 i++;
-                //Console.WriteLine(pos.X.ToString() + ',' + pos.Y.ToString());
             }
+            Model.Geometry.UpdateVertices();
         }
     }
 }
