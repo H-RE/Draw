@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Windows;
 
 namespace LineasWPF
 {
-    class Edge
+    class Edge:DependencyObject
     {
         public event EventHandler ShapeChanged;
         private readonly double Thickness;
         private readonly List<Point> Stable;
+
+        public Point Center { get; set; }
+        public double Angle { get; set; }
+
         public Edge(bool isRight,double thickness)
         {
             if (isRight)
@@ -41,14 +46,14 @@ namespace LineasWPF
             Stable.Add(new Point( Thickness / 2,  Thickness / 2));
             OnShapeChanged();
         }
-        public IEnumerable<Point> WithAngleAndPosition(double angle, Point position)
+        public IEnumerable<Point> GetPositions()
         {
-            var Cos = Math.Cos(angle);
-            var Sin = Math.Sin(angle);
+            var Cos = Math.Cos(Angle);
+            var Sin = Math.Sin(Angle);
             foreach (var point in Stable)
             {
-                var x = point.X * Cos - point.Y * Sin + position.X;
-                var y = point.Y * Cos + point.X * Sin + position.Y;
+                var x = point.X * Cos - point.Y * Sin + Center.X;
+                var y = point.Y * Cos + point.X * Sin + Center.Y;
                 yield return new Point(x, y);
             }
         }

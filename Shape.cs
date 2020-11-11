@@ -69,13 +69,13 @@ namespace LineasWPF
         private void MoveNode(object sender, EventArgs e)
         {
             int i = 0;
-            foreach (var pos in ERight.WithAngleAndPosition(0, Node.Position))
+            foreach (var pos in ERight.GetPositions())
             {
                 Positions[i] = new SharpDX.Vector3((float)pos.X, (float)pos.Y, 0);
                 i++;
                 //Console.WriteLine(pos.X.ToString()+','+ pos.Y.ToString());
             }
-            foreach (var pos in ELeft.WithAngleAndPosition(0, Node.Position))
+            foreach (var pos in ELeft.GetPositions())
             {
                 Positions[i] = new SharpDX.Vector3((float)pos.X, (float)pos.Y, 0);
                 i++;

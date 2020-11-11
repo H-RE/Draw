@@ -21,10 +21,19 @@ namespace LineasWPF
             ELeft.ShapeChanged += UpdateShape;
             ERight.ShapeChanged += UpdateShape;
 
+
+
+
+            ERight.Angle = angle;
+            ELeft.Angle = angle;
+            ERight.Center = NRight.Position;
+            ELeft.Center = NLeft.Position;
+
             SetPositions();
             SetIndices();
             SetNormals();
             Model.Geometry.UpdateVertices();
+
         }
 
         private void UpdateShape(object sender, EventArgs e)
@@ -41,11 +50,11 @@ namespace LineasWPF
 
         private void SetPositions()
         {
-            foreach (var pos in ERight.WithAngleAndPosition(angle, NRight.Position))//Eright.getpositions() (E)
+            foreach (var pos in ERight.GetPositions())//Eright.getpositions() (E)
             {
                 Positions.Add(new Vector3((float)pos.X,(float)pos.Y,0));
             }
-            foreach (var pos in ELeft.WithAngleAndPosition(angle, NLeft.Position))
+            foreach (var pos in ELeft.GetPositions())
             {
                 Positions.Add(new Vector3((float)pos.X, (float)pos.Y, 0));
             }
@@ -54,14 +63,18 @@ namespace LineasWPF
         {
             //actualiza el angulo
             angle = Kinematics.Angle(NLeft.Position, NRight.Position);
+            ERight.Angle = angle;
+            ELeft.Angle = angle;
+            ERight.Center = NRight.Position;
+            ELeft.Center = NLeft.Position;
             //Actualiza las posiciones
             int i = 0;
-            foreach (var pos in ERight.WithAngleAndPosition(angle, NRight.Position))
+            foreach (var pos in ERight.GetPositions())
             {
                 Positions[i] = new Vector3((float)pos.X, (float)pos.Y, 0);
                 i++;
             }
-            foreach (var pos in ELeft.WithAngleAndPosition(angle, NLeft.Position))
+            foreach (var pos in ELeft.GetPositions())
             {
                 Positions[i] = new Vector3((float)pos.X, (float)pos.Y, 0);
                 i++;
