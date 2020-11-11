@@ -4,7 +4,7 @@ using System.Windows;
 
 namespace LineasWPF
 {
-    class Edge:DependencyObject
+    class Edge
     {
         public event EventHandler ShapeChanged;
         private readonly double Thickness;
@@ -19,7 +19,7 @@ namespace LineasWPF
                 Thickness = thickness;
             else Thickness = -thickness;
             Stable = new List<Point>();
-            ToTrapezoidal();
+            //ToTrapezoidal();
         }
         protected virtual void OnShapeChanged()
         {
@@ -28,7 +28,7 @@ namespace LineasWPF
         public void ToCircular()
         {
             Stable.Clear();
-            var inc = Math.PI/10;
+            var inc = Math.PI/20;
             double X,Y;
             var td2 = Thickness / 2;
             for (double angle = -Math.PI/2; angle <= Math.PI/2; angle += inc)

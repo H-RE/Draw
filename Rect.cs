@@ -6,7 +6,7 @@
         {
             ELeft.ToTrapezoidal();
             ERight.ToTrapezoidal();
-            SetTriangles();
+            //SetTriangles();
             Model.Geometry.UpdateVertices();
         }
     }

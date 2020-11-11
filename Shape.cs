@@ -44,9 +44,14 @@ namespace LineasWPF
             ELeft.ShapeChanged += UpdateShape;
             ERight.ShapeChanged += UpdateShape;
         }
-
-        protected void SetTriangles()
+        protected void UpdateShape(object sender, EventArgs e)
         {
+            //Borra posiciones e indices
+            Positions.Clear();
+            Indices.Clear();
+            Normals.Clear();
+            //Reasigna los triangulos
+
             //SE ESTABLECEN LAS POSICIONES
             foreach (var pos in ERight.GetPositions())//Eright.getpositions() (E)
             {
@@ -70,16 +75,6 @@ namespace LineasWPF
             //SE ESTABLECEN LOS VECTORES NORMALES
             for (int p = 0; p < Positions.Count; p++)
                 Normals.Add(new Vector3(0, 0, 1));
-
-        }
-        protected void UpdateShape(object sender, EventArgs e)
-        {
-            //Borra posiciones e indices
-            Positions.Clear();
-            Indices.Clear();
-            Normals.Clear();
-            //Reasigna los triangulos
-            SetTriangles();
         }
     }
     class SingleNode:Shape
