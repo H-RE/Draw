@@ -25,7 +25,6 @@ namespace LineasWPF
             ELeft.Center = NLeft.Position;
 
             //Se actualizan los triangulos
-            //SetTriangles();
             ERight.ToCircular();
             ELeft.ToCircular();
             Model.Geometry.UpdateVertices();
