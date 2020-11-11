@@ -48,23 +48,13 @@ namespace LineasWPF
         }
         public IEnumerable<Point> GetPositions()
         {
+            //if(angle!=0)...
             var Cos = Math.Cos(Angle);
             var Sin = Math.Sin(Angle);
             foreach (var point in Stable)
             {
                 var x = point.X * Cos - point.Y * Sin + Center.X;
                 var y = point.Y * Cos + point.X * Sin + Center.Y;
-                yield return new Point(x, y);
-            }
-        }
-        public IEnumerable<Point> WithAngle(double angle)
-        {
-            var Cos = Math.Cos(angle);
-            var Sin = Math.Sin(angle);
-            foreach (var point in Stable)
-            {
-                var x = point.X * Cos - point.Y * Sin;
-                var y = point.Y * Cos + point.X * Sin;
                 yield return new Point(x, y);
             }
         }

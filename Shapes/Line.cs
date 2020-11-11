@@ -1,7 +1,5 @@
 ﻿using SharpDX;
 using System;
-using System.Collections.Generic;
-using System.Windows.Media.Media3D;
 
 namespace LineasWPF
 {
@@ -28,7 +26,6 @@ namespace LineasWPF
             ERight.ToCircular();
             ELeft.ToCircular();
             Model.Geometry.UpdateVertices();
-
         }
 
         private void MoveNode(object sender, EventArgs e)
