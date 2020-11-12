@@ -13,13 +13,13 @@ Then rotate all positions around the center with an angle A
 and finally displace all positions to the initial Point, simply adding X and Y to the center that was placed at (0,0)
 
 
-![LineBuilder](/Shapes/images/BuilderLine.png)
+![](https://github.com/H-RE/Draw/blob/master/Shapes/Images/BuilderLine.png)
 Algunas imágenes fueron creadas en 
 [Creately](https://app.creately.com/)
 
 ### Create indices
 
-![Positions](/Shapes/images/Positions.jpg)
+![](https://github.com/H-RE/Draw/blob/master/Shapes/Images/Positions.jpg)
 
 
 ### Create normals
